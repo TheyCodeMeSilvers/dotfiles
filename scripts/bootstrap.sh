@@ -113,10 +113,7 @@ main() {
   ensure_link "$REPO_ROOT/configs/ghostty" "$HOME_DIR/.config/ghostty"
   ensure_link "$REPO_ROOT/configs/nvim" "$HOME_DIR/.config/nvim"
   ensure_link "$REPO_ROOT/configs/hammerspoon" "$HOME_DIR/.hammerspoon"
-  ensure_link "$REPO_ROOT/configs/zen/profile/chrome" "$zen_profile/chrome"
-  ensure_link "$REPO_ROOT/configs/zen/profile/prefs.js" "$zen_profile/prefs.js"
   ensure_link "$REPO_ROOT/configs/zen/profile/zen-keyboard-shortcuts.json" "$zen_profile/zen-keyboard-shortcuts.json"
-  ensure_link "$REPO_ROOT/configs/zen/profile/zen-themes.json" "$zen_profile/zen-themes.json"
 
   log "Bootstrap complete"
   log "Restart Ghostty, Zen, Hammerspoon, and Neovim to pick up changes"

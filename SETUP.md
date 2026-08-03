@@ -22,6 +22,7 @@ On a fresh Mac, run:
 That script:
 
 - installs Homebrew if it is missing
+- installs `rustup` if it is missing and ensures the stable Rust toolchain editor components are available
 - installs `neovim`, `ghostty`, `hammerspoon`, and `zen` from `Brewfile`
 - launches Zen once so it creates a profile
 - runs `./scripts/bootstrap.sh`
@@ -68,10 +69,7 @@ The bootstrap script links these locations:
 - `configs/ghostty` -> `~/.config/ghostty`
 - `configs/nvim` -> `~/.config/nvim`
 - `configs/hammerspoon` -> `~/.hammerspoon`
-- `configs/zen/profile/chrome` -> Zen profile `chrome` directory
-- `configs/zen/profile/prefs.js` -> Zen profile `prefs.js`
 - `configs/zen/profile/zen-keyboard-shortcuts.json` -> Zen keyboard shortcuts
-- `configs/zen/profile/zen-themes.json` -> Zen themes config
 
 For Zen, the script reads `~/Library/Application Support/zen/profiles.ini` and links the repo files into whichever profile is marked as the active/default one.
 
@@ -123,7 +121,8 @@ That backup contains the previous local versions of the config so you can restor
 
 - This is a symlink-based single-repo setup.
 - After bootstrap, edit the normal config paths and commit from this repo.
-- Zen still includes `prefs.js`, so some machine-specific browser state may come across.
+- `install.sh` also prepares the Rust tooling required by the Neovim config, including `rust-analyzer`.
+- Zen only syncs the keyboard shortcuts file, so the rest of the browser profile stays machine-local.
 - The old per-app git repos are no longer needed once the live paths point here.
 
 ## Repo structure
@@ -136,10 +135,7 @@ dotfiles/
     nvim/
     zen/
       profile/
-        chrome/
-        prefs.js
         zen-keyboard-shortcuts.json
-        zen-themes.json
   scripts/
     install.sh
     bootstrap.sh

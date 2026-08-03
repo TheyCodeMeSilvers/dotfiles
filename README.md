@@ -15,7 +15,7 @@ The live config locations on your machine are symlinked back into this repo, so 
 ./scripts/install.sh
 ```
 
-This installs `neovim`, `ghostty`, `hammerspoon`, and `zen` via Homebrew, launches Zen once to create a profile, and then runs the bootstrap step.
+This installs `neovim`, `ghostty`, `hammerspoon`, and `zen` via Homebrew, ensures the Rust toolchain pieces Neovim expects are present, launches Zen once to create a profile, and then runs the bootstrap step.
 
 ## Workflow
 
@@ -29,10 +29,7 @@ This installs `neovim`, `ghostty`, `hammerspoon`, and `zen` via Homebrew, launch
 - `configs/ghostty` -> `~/.config/ghostty`
 - `configs/nvim` -> `~/.config/nvim`
 - `configs/hammerspoon` -> `~/.hammerspoon`
-- `configs/zen/profile/chrome` -> Zen `chrome` directory
-- `configs/zen/profile/prefs.js` -> Zen `prefs.js`
 - `configs/zen/profile/zen-keyboard-shortcuts.json` -> Zen keyboard shortcuts
-- `configs/zen/profile/zen-themes.json` -> Zen themes config
 
 ## First-time setup on another Mac
 
@@ -52,6 +49,6 @@ This installs `neovim`, `ghostty`, `hammerspoon`, and `zen` via Homebrew, launch
 
 - `bootstrap` backs up anything it replaces into `~/.dotfiles-backups/`.
 - `install.sh` installs the required apps with Homebrew using `Brewfile`.
-- Zen links into whichever profile is marked as the current default in `profiles.ini`.
-- Zen still includes `prefs.js`, so some machine-specific browser state may come across.
+- `install.sh` also ensures `rust-analyzer`, `rustfmt`, and `clippy` are available for the Neovim Rust setup.
+- Zen links the keyboard shortcuts file into whichever profile is marked as the current default in `profiles.ini`.
 - More detail lives in `SETUP.md`.
