@@ -1,6 +1,9 @@
 # Treat Option as Alt so Neovim receives <A-...> key events properly
 macos-option-as-alt = true
 
+# Editor text size
+font-size = 15
+
 # Unbind Cmd keys so they pass through to Neovim via the kitty keyboard
 # protocol. Neovim 0.11+ and Ghostty both support this protocol, so
 # Neovim will receive these as <D-Right>, <D-Left>, etc. natively.
@@ -20,6 +23,10 @@ keybind = super+e=unbind
 keybind = super+l=unbind
 keybind = super+g=unbind
 keybind = super+shift+g=unbind
+keybind = super+j=unbind
+keybind = super+shift+j=unbind
+keybind = shift+arrow_left=unbind
+keybind = shift+arrow_right=unbind
 
 # Cmd+Shift+Arrow: split terminal in that direction
 keybind = super+shift+arrow_down=new_split:down
