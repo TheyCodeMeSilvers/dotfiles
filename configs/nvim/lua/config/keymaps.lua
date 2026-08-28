@@ -141,25 +141,19 @@ end, { desc = "Copy File Contents" })
 
 map("n", "<leader>ff", fold_all_functions, { desc = "Fold Functions" })
 
+local function trigger_completion()
+  if vim.api.nvim_get_mode().mode ~= "i" then
+    vim.cmd("startinsert")
+  end
+
+  vim.schedule(function()
+    require("blink.cmp").show()
+  end)
+end
+
 -- Cmd+.: trigger autocomplete suggestions
-map("i", "<D-.>", function()
-  require("blink.cmp").show()
-end, { desc = "Trigger completion" })
-map("i", "<D-k>", function()
-  require("blink.cmp").show()
-end, { desc = "Trigger completion" })
-map("n", "<D-.>", function()
-  vim.cmd("startinsert")
-  vim.schedule(function()
-    require("blink.cmp").show()
-  end)
-end, { desc = "Trigger completion" })
-map("n", "<D-k>", function()
-  vim.cmd("startinsert")
-  vim.schedule(function()
-    require("blink.cmp").show()
-  end)
-end, { desc = "Trigger completion" })
+map({ "n", "i" }, "<D-.>", trigger_completion, { desc = "Trigger completion" })
+map({ "n", "i" }, "<D-k>", trigger_completion, { desc = "Trigger completion" })
 
 -- Ghostty fallback for Cmd+. (mapped to F22 in ~/.config/ghostty/config)
 map({ "n", "i" }, "<F22>", function()
@@ -196,6 +190,18 @@ map({ "n", "i", "v" }, "<D-s>", function()
   vim.cmd("write")
 end, { desc = "Save file" })
 
+map("n", "<D-z>", "u", { desc = "Undo" })
+map("i", "<D-z>", "<C-o>u", { desc = "Undo" })
+map("v", "<D-z>", "<Esc>u", { desc = "Undo" })
+
+map("n", "<D-Z>", "<C-r>", { desc = "Redo" })
+map("i", "<D-Z>", "<C-o><C-r>", { desc = "Redo" })
+map("v", "<D-Z>", "<Esc><C-r>", { desc = "Redo" })
+
+map("n", "<D-e>", "<leader>e", { remap = true, desc = "Focus Explorer" })
+map("i", "<D-e>", "<Esc><leader>e", { remap = true, desc = "Focus Explorer" })
+map("v", "<D-e>", "<Esc><leader>e", { remap = true, desc = "Focus Explorer" })
+
 map({ "n", "v" }, "<D-Left>", "0", { desc = "Line start" })
 map({ "n", "v" }, "<D-Right>", "$", { desc = "Line end" })
 map("i", "<D-Left>", "<C-o>0", { desc = "Line start" })
@@ -222,8 +228,8 @@ map("n", "G", "Gzz", { desc = "Goto line centered" })
 map("n", "gg", "ggzz", { desc = "Goto first line centered" })
 map("n", "g+", ":+", { desc = "Goto relative line forward" })
 map("n", "g-", ":-", { desc = "Goto relative line backward" })
-map("n", "<S-Down>", "<C-d>zz", { desc = "Half page down centered" })
-map("n", "<S-Up>", "<C-u>zz", { desc = "Half page up centered" })
+map("n", "<S-Down>", "}zz", { desc = "Next paragraph centered" })
+map("n", "<S-Up>", "{zz", { desc = "Previous paragraph centered" })
 map("n", "n", "nzzzv", { desc = "Next search result centered" })
 map("n", "N", "Nzzzv", { desc = "Previous search result centered" })
 map("n", "rr", vim.lsp.buf.rename, { desc = "Rename" })
