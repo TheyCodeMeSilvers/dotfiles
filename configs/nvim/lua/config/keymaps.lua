@@ -185,6 +185,9 @@ map({ "n", "i", "v" }, "<D-'>", vim.lsp.buf.code_action, { desc = "Code actions"
 -- Cmd+L: code actions / quick fix (matching Zed's Cmd+L behavior)
 map({ "n", "i", "v" }, "<D-l>", vim.lsp.buf.code_action, { desc = "Code actions" })
 
+-- Cmd+G: go to definition (matching Zed's Cmd+G behavior)
+map({ "n", "i", "v" }, "<D-g>", vim.lsp.buf.definition, { desc = "Go to definition" })
+
 -- Cmd+S: save current file
 map({ "n", "i", "v" }, "<D-s>", function()
   if vim.api.nvim_get_mode().mode ~= "n" then
