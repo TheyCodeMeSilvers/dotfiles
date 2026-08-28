@@ -141,25 +141,19 @@ end, { desc = "Copy File Contents" })
 
 map("n", "<leader>ff", fold_all_functions, { desc = "Fold Functions" })
 
+local function trigger_completion()
+  if vim.api.nvim_get_mode().mode ~= "i" then
+    vim.cmd("startinsert")
+  end
+
+  vim.schedule(function()
+    require("blink.cmp").show()
+  end)
+end
+
 -- Cmd+.: trigger autocomplete suggestions
-map("i", "<D-.>", function()
-  require("blink.cmp").show()
-end, { desc = "Trigger completion" })
-map("i", "<D-k>", function()
-  require("blink.cmp").show()
-end, { desc = "Trigger completion" })
-map("n", "<D-.>", function()
-  vim.cmd("startinsert")
-  vim.schedule(function()
-    require("blink.cmp").show()
-  end)
-end, { desc = "Trigger completion" })
-map("n", "<D-k>", function()
-  vim.cmd("startinsert")
-  vim.schedule(function()
-    require("blink.cmp").show()
-  end)
-end, { desc = "Trigger completion" })
+map({ "n", "i" }, "<D-.>", trigger_completion, { desc = "Trigger completion" })
+map({ "n", "i" }, "<D-k>", trigger_completion, { desc = "Trigger completion" })
 
 -- Ghostty fallback for Cmd+. (mapped to F22 in ~/.config/ghostty/config)
 map({ "n", "i" }, "<F22>", function()
@@ -188,6 +182,12 @@ end, { desc = "Trigger completion" })
 -- Cmd+': code actions
 map({ "n", "i", "v" }, "<D-'>", vim.lsp.buf.code_action, { desc = "Code actions" })
 
+-- Cmd+L: code actions / quick fix (matching Zed's Cmd+L behavior)
+map({ "n", "i", "v" }, "<D-l>", vim.lsp.buf.code_action, { desc = "Code actions" })
+
+-- Cmd+G: go to definition (matching Zed's Cmd+G behavior)
+map({ "n", "i", "v" }, "<D-g>", vim.lsp.buf.definition, { desc = "Go to definition" })
+
 -- Cmd+S: save current file
 map({ "n", "i", "v" }, "<D-s>", function()
   if vim.api.nvim_get_mode().mode ~= "n" then
@@ -195,6 +195,18 @@ map({ "n", "i", "v" }, "<D-s>", function()
   end
   vim.cmd("write")
 end, { desc = "Save file" })
+
+map("n", "<D-z>", "u", { desc = "Undo" })
+map("i", "<D-z>", "<C-o>u", { desc = "Undo" })
+map("v", "<D-z>", "<Esc>u", { desc = "Undo" })
+
+map("n", "<D-Z>", "<C-r>", { desc = "Redo" })
+map("i", "<D-Z>", "<C-o><C-r>", { desc = "Redo" })
+map("v", "<D-Z>", "<Esc><C-r>", { desc = "Redo" })
+
+map("n", "<D-e>", "<leader>e", { remap = true, desc = "Focus Explorer" })
+map("i", "<D-e>", "<Esc><leader>e", { remap = true, desc = "Focus Explorer" })
+map("v", "<D-e>", "<Esc><leader>e", { remap = true, desc = "Focus Explorer" })
 
 map({ "n", "v" }, "<D-Left>", "0", { desc = "Line start" })
 map({ "n", "v" }, "<D-Right>", "$", { desc = "Line end" })
@@ -222,8 +234,27 @@ map("n", "G", "Gzz", { desc = "Goto line centered" })
 map("n", "gg", "ggzz", { desc = "Goto first line centered" })
 map("n", "g+", ":+", { desc = "Goto relative line forward" })
 map("n", "g-", ":-", { desc = "Goto relative line backward" })
-map("n", "<S-Down>", "<C-d>zz", { desc = "Half page down centered" })
-map("n", "<S-Up>", "<C-u>zz", { desc = "Half page up centered" })
+map("n", "<C-Down>", "}zz", { desc = "Next paragraph centered" })
+map("n", "<C-Up>", "{zz", { desc = "Previous paragraph centered" })
+
+-- Shift+Up/Down: highlight/select text (like Zed)
+map("n", "<S-Up>", "v<Up>", { desc = "Select previous line" })
+map("n", "<S-Down>", "v<Down>", { desc = "Select next line" })
+map("v", "<S-Up>", "<Up>", { desc = "Extend selection up" })
+map("v", "<S-Down>", "<Down>", { desc = "Extend selection down" })
+
+-- Alt+Up/Down: move line (or visual selection) up/down
+map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Line Down" })
+map("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Line Up" })
+map("v", "<A-Down>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Selection Down" })
+map("v", "<A-Up>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Selection Up" })
+
+-- Alt+Shift+Up/Down: duplicate line (or selection) above/below
+map("n", "<A-S-Down>", "yyp", { desc = "Duplicate Line Below" })
+map("n", "<A-S-Up>", "yyP", { desc = "Duplicate Line Above" })
+map("v", "<A-S-Down>", "y'>p", { desc = "Duplicate Selection Below" })
+map("v", "<A-S-Up>", "y'<P", { desc = "Duplicate Selection Above" })
+
 map("n", "n", "nzzzv", { desc = "Next search result centered" })
 map("n", "N", "Nzzzv", { desc = "Previous search result centered" })
 map("n", "rr", vim.lsp.buf.rename, { desc = "Rename" })

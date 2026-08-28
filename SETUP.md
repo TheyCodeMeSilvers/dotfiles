@@ -5,7 +5,6 @@ This repo is the source of truth for the local config of:
 - Ghostty
 - Neovim
 - Hammerspoon
-- Zen
 
 This repo is designed to behave like your old standalone Neovim config repo, but for multiple apps in one place.
 
@@ -23,8 +22,7 @@ That script:
 
 - installs Homebrew if it is missing
 - installs `rustup` if it is missing and ensures the stable Rust toolchain editor components are available
-- installs `neovim`, `ghostty`, `hammerspoon`, and `zen` from `Brewfile`
-- launches Zen once so it creates a profile
+- installs `neovim`, `ghostty`, and `hammerspoon` from `Brewfile`
 - runs `./scripts/bootstrap.sh`
 
 ## How it works
@@ -43,7 +41,6 @@ or, if the apps are already installed:
 
 The bootstrap script:
 
-- finds your active Zen profile
 - backs up any existing local config it is about to replace
 - creates symlinks from the normal config paths to this repo
 
@@ -69,9 +66,6 @@ The bootstrap script links these locations:
 - `configs/ghostty` -> `~/.config/ghostty`
 - `configs/nvim` -> `~/.config/nvim`
 - `configs/hammerspoon` -> `~/.hammerspoon`
-- `configs/zen/profile/zen-keyboard-shortcuts.json` -> Zen keyboard shortcuts
-
-For Zen, the script reads `~/Library/Application Support/zen/profiles.ini` and links the repo files into whichever profile is marked as the active/default one.
 
 ## Commands
 
@@ -122,7 +116,6 @@ That backup contains the previous local versions of the config so you can restor
 - This is a symlink-based single-repo setup.
 - After bootstrap, edit the normal config paths and commit from this repo.
 - `install.sh` also prepares the Rust tooling required by the Neovim config, including `rust-analyzer`.
-- Zen only syncs the keyboard shortcuts file, so the rest of the browser profile stays machine-local.
 - The old per-app git repos are no longer needed once the live paths point here.
 
 ## Repo structure
@@ -133,9 +126,6 @@ dotfiles/
     ghostty/
     hammerspoon/
     nvim/
-    zen/
-      profile/
-        zen-keyboard-shortcuts.json
   scripts/
     install.sh
     bootstrap.sh
@@ -146,5 +136,3 @@ dotfiles/
 ## If something changes later
 
 If you add another app config to manage, extend `scripts/bootstrap.sh` and add a new folder under `configs/`.
-
-If Zen changes how it stores profiles, update the profile detection logic in `scripts/bootstrap.sh`.

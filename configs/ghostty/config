@@ -17,6 +17,9 @@ keybind = super+z=unbind
 keybind = super+shift+z=unbind
 keybind = super+d=unbind
 keybind = super+e=unbind
+keybind = super+l=unbind
+keybind = super+g=unbind
+keybind = super+shift+g=unbind
 
 # Cmd+Shift+Arrow: split terminal in that direction
 keybind = super+shift+arrow_down=new_split:down
@@ -41,6 +44,12 @@ keybind = alt+arrow_left=unbind
 keybind = alt+arrow_up=unbind
 keybind = alt+arrow_down=unbind
 keybind = alt+backspace=unbind
+
+# Alt+Shift+Arrow: let them pass through to Neovim for line duplication
+keybind = alt+shift+arrow_up=unbind
+keybind = alt+shift+arrow_down=unbind
+keybind = alt+shift+arrow_right=unbind
+keybind = alt+shift+arrow_left=unbind
 
 # Unbind Cmd+/ so it passes through to Neovim as <D-/> via kitty protocol
 keybind = super+/=unbind
