@@ -113,6 +113,7 @@ main() {
   ensure_link "$REPO_ROOT/configs/ghostty" "$HOME_DIR/.config/ghostty"
   ensure_link "$REPO_ROOT/configs/nvim" "$HOME_DIR/.config/nvim"
   ensure_link "$REPO_ROOT/configs/hammerspoon" "$HOME_DIR/.hammerspoon"
+  ensure_link "$REPO_ROOT/configs/zen/profile/user.js" "$zen_profile/user.js"
   ensure_link "$REPO_ROOT/configs/zen/profile/zen-keyboard-shortcuts.json" "$zen_profile/zen-keyboard-shortcuts.json"
 
   log "Bootstrap complete"

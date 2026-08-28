@@ -29,6 +29,7 @@ This installs `neovim`, `ghostty`, `hammerspoon`, and `zen` via Homebrew, ensure
 - `configs/ghostty` -> `~/.config/ghostty`
 - `configs/nvim` -> `~/.config/nvim`
 - `configs/hammerspoon` -> `~/.hammerspoon`
+- `configs/zen/profile/user.js` -> Zen profile preferences
 - `configs/zen/profile/zen-keyboard-shortcuts.json` -> Zen keyboard shortcuts
 
 ## First-time setup on another Mac
@@ -50,5 +51,5 @@ This installs `neovim`, `ghostty`, `hammerspoon`, and `zen` via Homebrew, ensure
 - `bootstrap` backs up anything it replaces into `~/.dotfiles-backups/`.
 - `install.sh` installs the required apps with Homebrew using `Brewfile`.
 - `install.sh` also ensures `rust-analyzer`, `rustfmt`, and `clippy` are available for the Neovim Rust setup.
-- Zen links the keyboard shortcuts file into whichever profile is marked as the current default in `profiles.ini`.
+- Zen links `user.js` and the keyboard shortcuts file into whichever profile is marked as the current default in `profiles.ini`.
 - More detail lives in `SETUP.md`.

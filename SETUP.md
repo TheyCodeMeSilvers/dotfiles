@@ -69,6 +69,7 @@ The bootstrap script links these locations:
 - `configs/ghostty` -> `~/.config/ghostty`
 - `configs/nvim` -> `~/.config/nvim`
 - `configs/hammerspoon` -> `~/.hammerspoon`
+- `configs/zen/profile/user.js` -> Zen profile preferences
 - `configs/zen/profile/zen-keyboard-shortcuts.json` -> Zen keyboard shortcuts
 
 For Zen, the script reads `~/Library/Application Support/zen/profiles.ini` and links the repo files into whichever profile is marked as the active/default one.
@@ -122,7 +123,7 @@ That backup contains the previous local versions of the config so you can restor
 - This is a symlink-based single-repo setup.
 - After bootstrap, edit the normal config paths and commit from this repo.
 - `install.sh` also prepares the Rust tooling required by the Neovim config, including `rust-analyzer`.
-- Zen only syncs the keyboard shortcuts file, so the rest of the browser profile stays machine-local.
+- Zen syncs `user.js` and the keyboard shortcuts file, while the rest of the browser profile stays machine-local.
 - The old per-app git repos are no longer needed once the live paths point here.
 
 ## Repo structure
@@ -135,6 +136,7 @@ dotfiles/
     nvim/
     zen/
       profile/
+        user.js
         zen-keyboard-shortcuts.json
   scripts/
     install.sh
