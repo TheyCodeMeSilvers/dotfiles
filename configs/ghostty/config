@@ -17,6 +17,7 @@ keybind = super+z=unbind
 keybind = super+shift+z=unbind
 keybind = super+d=unbind
 keybind = super+e=unbind
+keybind = super+l=unbind
 
 # Cmd+Shift+Arrow: split terminal in that direction
 keybind = super+shift+arrow_down=new_split:down

@@ -182,6 +182,9 @@ end, { desc = "Trigger completion" })
 -- Cmd+': code actions
 map({ "n", "i", "v" }, "<D-'>", vim.lsp.buf.code_action, { desc = "Code actions" })
 
+-- Cmd+L: code actions / quick fix (matching Zed's Cmd+L behavior)
+map({ "n", "i", "v" }, "<D-l>", vim.lsp.buf.code_action, { desc = "Code actions" })
+
 -- Cmd+S: save current file
 map({ "n", "i", "v" }, "<D-s>", function()
   if vim.api.nvim_get_mode().mode ~= "n" then
@@ -228,8 +231,14 @@ map("n", "G", "Gzz", { desc = "Goto line centered" })
 map("n", "gg", "ggzz", { desc = "Goto first line centered" })
 map("n", "g+", ":+", { desc = "Goto relative line forward" })
 map("n", "g-", ":-", { desc = "Goto relative line backward" })
-map("n", "<S-Down>", "}zz", { desc = "Next paragraph centered" })
-map("n", "<S-Up>", "{zz", { desc = "Previous paragraph centered" })
+map("n", "<C-Down>", "}zz", { desc = "Next paragraph centered" })
+map("n", "<C-Up>", "{zz", { desc = "Previous paragraph centered" })
+
+-- Shift+Up/Down: highlight/select text (like Zed)
+map("n", "<S-Up>", "v<Up>", { desc = "Select previous line" })
+map("n", "<S-Down>", "v<Down>", { desc = "Select next line" })
+map("v", "<S-Up>", "<Up>", { desc = "Extend selection up" })
+map("v", "<S-Down>", "<Down>", { desc = "Extend selection down" })
 map("n", "n", "nzzzv", { desc = "Next search result centered" })
 map("n", "N", "Nzzzv", { desc = "Previous search result centered" })
 map("n", "rr", vim.lsp.buf.rename, { desc = "Rename" })
