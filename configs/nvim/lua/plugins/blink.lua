@@ -20,7 +20,14 @@ return {
       },
       keymap = {
         preset = "enter",
-        ["<CR>"] = { "select_and_accept", "fallback" },
+        ["<CR>"] = {
+          function(cmp)
+            if cmp.is_menu_visible() then
+              return cmp.select_and_accept({ force = true })
+            end
+          end,
+          "fallback",
+        },
       },
     },
   },

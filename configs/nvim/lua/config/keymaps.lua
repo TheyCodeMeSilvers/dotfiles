@@ -239,6 +239,19 @@ map("n", "<S-Up>", "v<Up>", { desc = "Select previous line" })
 map("n", "<S-Down>", "v<Down>", { desc = "Select next line" })
 map("v", "<S-Up>", "<Up>", { desc = "Extend selection up" })
 map("v", "<S-Down>", "<Down>", { desc = "Extend selection down" })
+
+-- Alt+Up/Down: move line (or visual selection) up/down
+map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Line Down" })
+map("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Line Up" })
+map("v", "<A-Down>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Selection Down" })
+map("v", "<A-Up>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Selection Up" })
+
+-- Alt+Shift+Up/Down: duplicate line (or selection) above/below
+map("n", "<A-S-Down>", "yyp", { desc = "Duplicate Line Below" })
+map("n", "<A-S-Up>", "yyP", { desc = "Duplicate Line Above" })
+map("v", "<A-S-Down>", "y'>p", { desc = "Duplicate Selection Below" })
+map("v", "<A-S-Up>", "y'<P", { desc = "Duplicate Selection Above" })
+
 map("n", "n", "nzzzv", { desc = "Next search result centered" })
 map("n", "N", "Nzzzv", { desc = "Previous search result centered" })
 map("n", "rr", vim.lsp.buf.rename, { desc = "Rename" })

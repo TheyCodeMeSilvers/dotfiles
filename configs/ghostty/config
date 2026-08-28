@@ -43,6 +43,12 @@ keybind = alt+arrow_up=unbind
 keybind = alt+arrow_down=unbind
 keybind = alt+backspace=unbind
 
+# Alt+Shift+Arrow: let them pass through to Neovim for line duplication
+keybind = alt+shift+arrow_up=unbind
+keybind = alt+shift+arrow_down=unbind
+keybind = alt+shift+arrow_right=unbind
+keybind = alt+shift+arrow_left=unbind
+
 # Unbind Cmd+/ so it passes through to Neovim as <D-/> via kitty protocol
 keybind = super+/=unbind
 

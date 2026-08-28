@@ -17,51 +17,6 @@ require_tool() {
   fi
 }
 
-detect_zen_profile_dir() {
-  local zen_root profiles_ini rel_path
-  zen_root="$HOME_DIR/Library/Application Support/zen"
-  profiles_ini="$zen_root/profiles.ini"
-
-  if [[ ! -f "$profiles_ini" ]]; then
-    log "Zen profile not found. Open Zen once before running this script, or use ./scripts/install.sh."
-    exit 1
-  fi
-
-  rel_path="$(python3 - "$profiles_ini" <<'PY'
-import configparser
-import sys
-
-path = sys.argv[1]
-config = configparser.RawConfigParser()
-config.read(path)
-
-for section in config.sections():
-    if section.startswith("Install") and config.has_option(section, "Default"):
-        print(config.get(section, "Default"))
-        raise SystemExit(0)
-
-for section in config.sections():
-    if config.has_option(section, "Default") and config.get(section, "Default") == "1" and config.has_option(section, "Path"):
-        print(config.get(section, "Path"))
-        raise SystemExit(0)
-
-for section in config.sections():
-    if section.startswith("Profile") and config.has_option(section, "Path"):
-        print(config.get(section, "Path"))
-        raise SystemExit(0)
-
-raise SystemExit(1)
-PY
-)"
-
-  if [[ -z "$rel_path" ]]; then
-    log "Could not determine Zen profile path."
-    exit 1
-  fi
-
-  printf '%s/%s\n' "$zen_root" "$rel_path"
-}
-
 backup_target() {
   local target="$1"
   local rel backup
@@ -104,22 +59,15 @@ ensure_link() {
 }
 
 main() {
-  local zen_profile
-  zen_profile="$(detect_zen_profile_dir)"
-
   log "Using repo at $REPO_ROOT"
   log "Backups will be stored in $BACKUP_ROOT if anything is replaced"
 
   ensure_link "$REPO_ROOT/configs/ghostty" "$HOME_DIR/.config/ghostty"
   ensure_link "$REPO_ROOT/configs/nvim" "$HOME_DIR/.config/nvim"
   ensure_link "$REPO_ROOT/configs/hammerspoon" "$HOME_DIR/.hammerspoon"
-  ensure_link "$REPO_ROOT/configs/zen/profile/user.js" "$zen_profile/user.js"
-  ensure_link "$REPO_ROOT/configs/zen/profile/zen-keyboard-shortcuts.json" "$zen_profile/zen-keyboard-shortcuts.json"
 
   log "Bootstrap complete"
-  log "Restart Ghostty, Zen, Hammerspoon, and Neovim to pick up changes"
+  log "Restart Ghostty, Hammerspoon, and Neovim to pick up changes"
 }
-
-require_tool python3
 
 main
