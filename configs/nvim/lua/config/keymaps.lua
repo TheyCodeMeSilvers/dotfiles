@@ -245,6 +245,8 @@ map("n", "<S-Up>", "v<Up>", { desc = "Select previous line" })
 map("n", "<S-Down>", "v<Down>", { desc = "Select next line" })
 map("v", "<S-Up>", "<Up>", { desc = "Extend selection up" })
 map("v", "<S-Down>", "<Down>", { desc = "Extend selection down" })
+map("i", "<S-Up>", "<Esc>v<Up>", { desc = "Select previous line" })
+map("i", "<S-Down>", "<Esc>v<Down>", { desc = "Select next line" })
 
 -- Shift+Left/Right: highlight/select text horizontally (like Zed)
 map("n", "<S-Left>", "v<Left>", { desc = "Select previous character" })
@@ -280,3 +282,9 @@ map("n", "<leader>ba", function()
   end
   vim.notify("Deleted all other buffers")
 end, { desc = "Delete All Other Buffers" })
+
+-- Substitute word under cursor across file
+map("n", "s", ":%s/<C-r><C-w>//g<Left><Left>", { desc = "Substitute word under cursor" })
+
+-- Close current buffer
+map("n", "<D-b>", "<cmd>bdelete<cr>", { desc = "Close buffer" })

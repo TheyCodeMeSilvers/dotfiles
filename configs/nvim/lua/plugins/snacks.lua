@@ -37,6 +37,13 @@ return {
             hidden = true,
             ignored = true,
             exclude = { "node_modules" },
+            win = {
+              list = {
+                keys = {
+                  ["f"] = "explorer_close_all",
+                },
+              },
+            },
             jump = { close = true },
             layout = {
               layout = {

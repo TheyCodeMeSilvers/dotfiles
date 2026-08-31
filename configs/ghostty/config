@@ -63,3 +63,6 @@ keybind = super+/=unbind
 
 # Cmd+A: send Escape to Neovim
 keybind = super+a=esc:
+
+# Cmd+B: pass through to Neovim to close buffer
+keybind = super+b=unbind
