@@ -188,6 +188,9 @@ map({ "n", "i", "v" }, "<D-l>", vim.lsp.buf.code_action, { desc = "Code actions"
 -- Cmd+G: go to definition (matching Zed's Cmd+G behavior)
 map({ "n", "i", "v" }, "<D-g>", vim.lsp.buf.definition, { desc = "Go to definition" })
 
+-- Cmd+J: hover documentation (function params, types, etc)
+map({ "n", "i", "v" }, "<D-j>", vim.lsp.buf.hover, { desc = "Hover documentation" })
+
 -- Cmd+S: save current file
 map({ "n", "i", "v" }, "<D-s>", function()
   if vim.api.nvim_get_mode().mode ~= "n" then
@@ -242,6 +245,14 @@ map("n", "<S-Up>", "v<Up>", { desc = "Select previous line" })
 map("n", "<S-Down>", "v<Down>", { desc = "Select next line" })
 map("v", "<S-Up>", "<Up>", { desc = "Extend selection up" })
 map("v", "<S-Down>", "<Down>", { desc = "Extend selection down" })
+map("i", "<S-Up>", "<Esc>v<Up>", { desc = "Select previous line" })
+map("i", "<S-Down>", "<Esc>v<Down>", { desc = "Select next line" })
+
+-- Shift+Left/Right: highlight/select text horizontally (like Zed)
+map("n", "<S-Left>", "v<Left>", { desc = "Select previous character" })
+map("n", "<S-Right>", "v<Right>", { desc = "Select next character" })
+map("v", "<S-Left>", "<Left>", { desc = "Extend selection left" })
+map("v", "<S-Right>", "<Right>", { desc = "Extend selection right" })
 
 -- Alt+Up/Down: move line (or visual selection) up/down
 map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Line Down" })
@@ -257,4 +268,23 @@ map("v", "<A-S-Up>", "y'<P", { desc = "Duplicate Selection Above" })
 
 map("n", "n", "nzzzv", { desc = "Next search result centered" })
 map("n", "N", "Nzzzv", { desc = "Previous search result centered" })
+map("n", "f", "/", { desc = "Search (like /)" })
 map("n", "rr", vim.lsp.buf.rename, { desc = "Rename" })
+
+-- Leader+b+a: delete all buffers (keeping the current window)
+map("n", "<leader>ba", function()
+  -- skip the current buffer so the window stays open
+  local current = vim.api.nvim_get_current_buf()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if bufnr ~= current and vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].buflisted then
+      pcall(vim.api.nvim_buf_delete, bufnr, { force = true })
+    end
+  end
+  vim.notify("Deleted all other buffers")
+end, { desc = "Delete All Other Buffers" })
+
+-- Substitute word under cursor across file
+map("n", "s", ":%s/<C-r><C-w>//g<Left><Left>", { desc = "Substitute word under cursor" })
+
+-- Close current buffer
+map("n", "<D-b>", "<cmd>bdelete<cr>", { desc = "Close buffer" })
