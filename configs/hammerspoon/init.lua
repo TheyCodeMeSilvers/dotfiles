@@ -11,7 +11,7 @@ hs.hotkey.bind({}, "F20", function()
 end)
 
 hs.hotkey.bind({}, "F17", function()
-  hs.application.launchOrFocus("Slack")
+  hs.application.launchOrFocus("Discord")
 end)
 
 hs.hotkey.bind({}, "F16", function()

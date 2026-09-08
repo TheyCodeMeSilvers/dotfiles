@@ -27,6 +27,16 @@ local function copy_to_pasteboard(text, message)
   vim.notify(message)
 end
 
+local function open_lazygit(cwd)
+  if vim.fn.executable("lazygit") ~= 1 then
+    vim.notify("lazygit is not installed", vim.log.levels.ERROR)
+    return
+  end
+
+  local opts = cwd and { cwd = cwd } or {}
+  Snacks.lazygit(opts)
+end
+
 local function fold_all_functions()
   local ok, parser = pcall(vim.treesitter.get_parser, 0)
 
@@ -140,6 +150,19 @@ map("n", "<leader>fC", function()
 end, { desc = "Copy File Contents" })
 
 map("n", "<leader>ff", fold_all_functions, { desc = "Fold Functions" })
+map("n", "<leader>dbo", "<cmd>DBUI<cr>", { desc = "Open DBUI" })
+map("n", "<leader>dbf", "<cmd>DBUIFindBuffer<cr>", { desc = "Find DBUI Buffer" })
+map("n", "<leader>dba", "<cmd>DBUIAddConnection<cr>", { desc = "Add DB Connection" })
+map("n", "<leader>w<Left>", "<C-w>h", { desc = "Go To Left Window" })
+map("n", "<leader>w<Down>", "<C-w>j", { desc = "Go To Lower Window" })
+map("n", "<leader>w<Up>", "<C-w>k", { desc = "Go To Upper Window" })
+map("n", "<leader>w<Right>", "<C-w>l", { desc = "Go To Right Window" })
+map("n", "<leader>gg", function()
+  open_lazygit(LazyVim.root.git())
+end, { desc = "Lazygit (Root Dir)" })
+map("n", "<leader>gG", function()
+  open_lazygit()
+end, { desc = "Lazygit (cwd)" })
 
 local function trigger_completion()
   if vim.api.nvim_get_mode().mode ~= "i" then

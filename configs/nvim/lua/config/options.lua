@@ -8,3 +8,7 @@ vim.diagnostic.config({
     source = "if_many",
   },
 })
+
+vim.g.omni_sql_no_default_maps = 1
+vim.g.db_ui_disable_mappings_sql = 1
+vim.g.db_ui_disable_mappings_javascript = 1
