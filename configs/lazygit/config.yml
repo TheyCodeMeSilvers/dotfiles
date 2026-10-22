@@ -1,0 +1,9 @@
+# lazygit uses nvim for editing (`e`), branching on $NVIM:
+#   - inside nvim (<leader>gg): opens in the parent instance via --remote-tab
+#   - standalone shell (gg):    opens plain nvim in the terminal
+# `os.open` is deliberately left unset so the `o` key falls through to macOS
+# `open`, keeping images and PDFs in Preview. Note that any explicit os.edit*
+# value would silently override this preset, and also override the
+# editPreset snacks.nvim injects when launching lazygit inside Neovim.
+os:
+  editPreset: 'nvim-remote'

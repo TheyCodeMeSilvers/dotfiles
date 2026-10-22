@@ -65,6 +65,8 @@ main() {
   ensure_link "$REPO_ROOT/configs/ghostty" "$HOME_DIR/.config/ghostty"
   ensure_link "$REPO_ROOT/configs/nvim" "$HOME_DIR/.config/nvim"
   ensure_link "$REPO_ROOT/configs/hammerspoon" "$HOME_DIR/.hammerspoon"
+  # Link the file, not the directory: lazygit also writes state.yml alongside it.
+  ensure_link "$REPO_ROOT/configs/lazygit/config.yml" "$HOME_DIR/Library/Application Support/lazygit/config.yml"
 
   log "Bootstrap complete"
   log "Restart Ghostty, Hammerspoon, and Neovim to pick up changes"
